@@ -19,7 +19,7 @@ const localDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
 
 export const getDashboard = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { localDate: string }) => z.object({ localDate }).parse(input))
+  .validator((input: { localDate: string }) => z.object({ localDate }).parse(input))
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
     const [{ data: profile }, { data: stats }, { data: curricula }] = await Promise.all([
@@ -58,7 +58,7 @@ export const getDashboard = createServerFn({ method: "POST" })
 
 export const submitLesson = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { curriculumKey: string; lessonId: string; answers: number[]; localDate: string }) =>
+  .validator((input: { curriculumKey: string; lessonId: string; answers: number[]; localDate: string }) =>
     z
       .object({
         curriculumKey: z.string().min(1).max(64),
@@ -142,7 +142,7 @@ export const submitLesson = createServerFn({ method: "POST" })
 
 export const setActiveCurriculum = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { curriculumId: string | null }) =>
+  .validator((input: { curriculumId: string | null }) =>
     z.object({ curriculumId: z.string().uuid().nullable() }).parse(input),
   )
   .handler(async ({ data, context }) => {
@@ -161,7 +161,7 @@ export const setActiveCurriculum = createServerFn({ method: "POST" })
 
 export const deleteCurriculum = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { curriculumId: string }) => z.object({ curriculumId: z.string().uuid() }).parse(input))
+  .validator((input: { curriculumId: string }) => z.object({ curriculumId: z.string().uuid() }).parse(input))
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
     await supabase.from("profiles").update({ active_curriculum_id: null }).eq("id", userId).eq("active_curriculum_id", data.curriculumId);
@@ -172,7 +172,7 @@ export const deleteCurriculum = createServerFn({ method: "POST" })
 
 export const getLeaderboard = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { scope: "global" | "topic"; curriculumKey?: string; lessonId?: string }) =>
+  .validator((input: { scope: "global" | "topic"; curriculumKey?: string; lessonId?: string }) =>
     z
       .object({
         scope: z.enum(["global", "topic"]),

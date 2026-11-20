@@ -15,7 +15,7 @@ Qaydalar və suallar yalnız PDF-dəki məzmuna əsaslansın. Düzgün variantla
 
 export const parseCurriculumPdf = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { path: string; fileName: string }) =>
+  .validator((input: { path: string; fileName: string }) =>
     z.object({ path: z.string().min(3).max(300), fileName: z.string().min(1).max(200) }).parse(input),
   )
   .handler(async ({ data, context }) => {

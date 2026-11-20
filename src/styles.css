@@ -42,6 +42,7 @@
   --color-gold: var(--gold);
   --color-gold-foreground: var(--gold-foreground);
   --color-surface: var(--surface);
+  --color-tone: var(--tone);
   --color-surface-raised: var(--surface-raised);
   --color-border: var(--border);
   --color-input: var(--input);
@@ -93,6 +94,8 @@
   --ring: oklch(0.66 0.26 354);
 
   /* Unit tones */
+  --tone: var(--primary);
+  --tone-deep: var(--primary-deep);
   --unit-1: oklch(0.66 0.26 354);
   --unit-1-deep: oklch(0.5 0.22 354);
   --unit-2: oklch(0.7 0.19 30);
@@ -143,10 +146,6 @@
 [data-tone="2"] { --tone: var(--unit-2); --tone-deep: var(--unit-2-deep); }
 [data-tone="3"] { --tone: var(--unit-3); --tone-deep: var(--unit-3-deep); }
 
-@utility bg-tone { background-color: var(--tone); }
-@utility text-tone { color: var(--tone); }
-@utility border-tone { border-color: var(--tone); }
-@utility stroke-tone { stroke: var(--tone); }
 @utility bg-glow { background-image: var(--gradient-glow); }
 @utility text-brand-gradient {
   background-image: var(--gradient-brand);
