@@ -172,7 +172,7 @@ function PathNode({
 
   return (
     <div
-      className="absolute animate-in fade-in zoom-in-75 fill-mode-both"
+      className="absolute w-0 animate-in fade-in zoom-in-75 fill-mode-both"
       style={{ left: x, top: y, animationDelay: `${index * 60}ms` }}
     >
       {status === "active" && (
