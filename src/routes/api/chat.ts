@@ -109,7 +109,7 @@ function buildTutorPrompt(
   ctx: z.infer<typeof bodySchema>["context"],
 ) {
   const lines = [
-    "Sən LEARNWITHAI platformasının mehriban AI müəllimisən (riyaziyyat və digər fənlər).",
+    "Sən steplyx-learning platformasının mehriban AI müəllimisən (riyaziyyat və digər fənlər).",
     "Azərbaycan dilində qısa, aydın cavab ver; düsturları və addımları markdown ilə yaz.",
     "Sokratik üsul: şagirdi addım-addım istiqamətləndir. Aktiv sual hələ cavablandırılmayıbsa, düzgün variantı birbaşa demə — qaydanı və növbəti addımı izah et.",
     "Yalnız aşağıdakı PDF qaydalarına əsaslan; mövzudan kənar suallarda nəzakətlə dərsə qaytar.",

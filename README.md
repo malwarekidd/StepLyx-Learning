@@ -1,6 +1,6 @@
-# StepLyx Learning
+# steplyx-learning
 
-Upload any PDF — a textbook, exam guide, lecture notes, or any subject — and StepLyx builds a step-by-step interactive learning path for it. It's not limited to math: upload a history PDF and get history lessons; upload a chemistry PDF and get chemistry lessons. The topic comes from your file.
+Upload any PDF — a textbook, exam guide, lecture notes, or any subject — and steplyx-learning builds a step-by-step interactive learning path for it. It's not limited to math: upload a history PDF and get history lessons; upload a chemistry PDF and get chemistry lessons. The topic comes from your file.
 
 ## What it does
 

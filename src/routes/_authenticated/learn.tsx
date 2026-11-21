@@ -12,10 +12,12 @@ export const Route = createFileRoute("/_authenticated/learn")({
   loader: ({ context }) => context.queryClient.ensureQueryData(dashboardQuery()),
   head: () => ({
     meta: [
-      { title: "Öyrənmə yolu — LEARNWITHAI" },
+      { title: "Öyrənmə yolu — steplyx-learning" },
       { name: "description", content: "Unitlər, dərslər və yoxlama nöqtələri ilə şəxsi öyrənmə yolun." },
-      { property: "og:title", content: "Öyrənmə yolu — LEARNWITHAI" },
+      { property: "og:title", content: "Öyrənmə yolu — steplyx-learning" },
       { property: "og:description", content: "Unitlər, dərslər və yoxlama nöqtələri ilə şəxsi öyrənmə yolun." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: LearnPage,

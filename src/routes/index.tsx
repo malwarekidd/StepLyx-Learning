@@ -8,9 +8,9 @@ import { useSession } from "@/hooks/use-session";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "LEARNWITHAI — PDF-ini öyrənmə yoluna çevir" },
+      { title: "steplyx-learning — PDF-ini öyrənmə yoluna çevir" },
       { name: "description", content: "Kurikulum PDF-ini yüklə: AI dərslər, testlər, qaydalar və şəxsi müəllim ilə interaktiv öyrənmə yolu qursun." },
-      { property: "og:title", content: "LEARNWITHAI — PDF-ini öyrənmə yoluna çevir" },
+      { property: "og:title", content: "steplyx-learning — PDF-ini öyrənmə yoluna çevir" },
       { property: "og:description", content: "Kurikulum PDF-ini yüklə: AI dərslər, testlər, qaydalar və şəxsi müəllim ilə interaktiv öyrənmə yolu qursun." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

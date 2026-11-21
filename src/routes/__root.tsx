@@ -84,9 +84,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "LEARNWITHAI — PDF-dən AI öyrənmə yolu" },
+      { title: "steplyx-learning — PDF-dən AI öyrənmə yolu" },
       { name: "description", content: "Kurikulum PDF-ini interaktiv dərslərə, testlərə və qaydalara çevirən AI öyrənmə platforması." },
-      { property: "og:title", content: "LEARNWITHAI — PDF-dən AI öyrənmə yolu" },
+      { property: "og:title", content: "steplyx-learning — PDF-dən AI öyrənmə yolu" },
       { property: "og:description", content: "Kurikulum PDF-ini interaktiv dərslərə, testlərə və qaydalara çevirən AI öyrənmə platforması." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

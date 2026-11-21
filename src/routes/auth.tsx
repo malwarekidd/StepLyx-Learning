@@ -24,10 +24,12 @@ export const Route = createFileRoute("/auth")({
     typeof s["redirect"] === "string" ? { redirect: s["redirect"] } : {},
   head: () => ({
     meta: [
-      { title: "Daxil ol — LEARNWITHAI" },
-      { name: "description", content: "LEARNWITHAI hesabına daxil ol və öyrənmə yoluna davam et." },
-      { property: "og:title", content: "Daxil ol — LEARNWITHAI" },
-      { property: "og:description", content: "LEARNWITHAI hesabına daxil ol və öyrənmə yoluna davam et." },
+      { title: "Daxil ol — steplyx-learning" },
+      { name: "description", content: "steplyx-learning hesabına daxil ol və öyrənmə yoluna davam et." },
+      { property: "og:title", content: "Daxil ol — steplyx-learning" },
+      { property: "og:description", content: "steplyx-learning hesabına daxil ol və öyrənmə yoluna davam et." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: AuthPage,

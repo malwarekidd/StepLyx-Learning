@@ -17,10 +17,12 @@ export const Route = createFileRoute("/_authenticated/upload")({
   loader: ({ context }) => context.queryClient.ensureQueryData(dashboardQuery()),
   head: () => ({
     meta: [
-      { title: "PDF yüklə — LEARNWITHAI" },
+      { title: "PDF yüklə — steplyx-learning" },
       { name: "description", content: "Kurikulum PDF-ini yüklə: AI unitləri, dərsləri, sualları və qaydaları çıxarıb öyrənmə yolu qurur." },
-      { property: "og:title", content: "PDF yüklə — LEARNWITHAI" },
+      { property: "og:title", content: "PDF yüklə — steplyx-learning" },
       { property: "og:description", content: "Kurikulum PDF-ini yüklə: AI unitləri, dərsləri, sualları və qaydaları çıxarıb öyrənmə yolu qurur." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: UploadPage,

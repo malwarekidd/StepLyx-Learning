@@ -1,4 +1,4 @@
-# LEARNWITHAI roadmap
+# steplyx-learning roadmap
 
 - [x] Path view (unit banner, connected nodes, BAŞLAT callout, section dividers)
 - [x] Lesson/quiz view with free answer re-selection until "Yoxla"

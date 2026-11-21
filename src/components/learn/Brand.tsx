@@ -1,7 +1,7 @@
 export function Brand({ className = "" }: { className?: string }) {
   return (
-    <span className={`font-display text-lg font-extrabold tracking-[0.18em] ${className}`}>
-      LEARNWITH<span className="text-brand-gradient">AI</span>
+    <span className={`whitespace-nowrap font-display text-base font-extrabold tracking-normal sm:text-lg ${className}`}>
+      steplyx-<span className="text-brand-gradient">learning</span>
     </span>
   );
 }

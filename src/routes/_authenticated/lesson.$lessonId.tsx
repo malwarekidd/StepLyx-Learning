@@ -18,10 +18,12 @@ export const Route = createFileRoute("/_authenticated/lesson/$lessonId")({
   loader: ({ context }) => context.queryClient.ensureQueryData(dashboardQuery()),
   head: () => ({
     meta: [
-      { title: "Dərs — LEARNWITHAI" },
+      { title: "Dərs — steplyx-learning" },
       { name: "description", content: "Test sualları, PDF qaydaları və AI müəllim ilə interaktiv dərs." },
-      { property: "og:title", content: "Dərs — LEARNWITHAI" },
+      { property: "og:title", content: "Dərs — steplyx-learning" },
       { property: "og:description", content: "Test sualları, PDF qaydaları və AI müəllim ilə interaktiv dərs." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: LessonPage,

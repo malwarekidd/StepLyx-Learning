@@ -63,7 +63,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-/* LEARNWITHAI is dark-only: the dark palette lives on :root. */
+/* steplyx-learning is dark-only: the dark palette lives on :root. */
 :root {
   --radius: 0.875rem;
   --background: oklch(0.175 0.01 250); /* #0f1318 */

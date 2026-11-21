@@ -14,10 +14,12 @@ export const Route = createFileRoute("/_authenticated/leaderboard")({
   loader: ({ context }) => context.queryClient.ensureQueryData(dashboardQuery()),
   head: () => ({
     meta: [
-      { title: "Liderlər cədvəli — LEARNWITHAI" },
+      { title: "Liderlər cədvəli — steplyx-learning" },
       { name: "description", content: "XP, dəqiqlik və seriyaya görə ən yaxşı şagirdlər — ümumi və mövzu üzrə." },
-      { property: "og:title", content: "Liderlər cədvəli — LEARNWITHAI" },
+      { property: "og:title", content: "Liderlər cədvəli — steplyx-learning" },
       { property: "og:description", content: "XP, dəqiqlik və seriyaya görə ən yaxşı şagirdlər — ümumi və mövzu üzrə." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: LeaderboardPage,
