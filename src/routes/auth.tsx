@@ -1,5 +1,4 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { LovableMark } from "@lovable.dev/cloud-auth-js/react";
 import { Loader2 } from "lucide-react";
 import { useEffect, useState, type FormEvent } from "react";
 import { toast } from "sonner";
@@ -9,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable";
 
 const safePath = (p?: string) => {
   if (!p) return "/learn";
@@ -92,10 +90,13 @@ function AuthPage() {
     }
   }
 
-  async function social(provider: "google" | "lovable") {
+  async function social(provider: "google") {
     sessionStorage.setItem("lwai-after-auth", target);
-    const result = await lovable.auth.signInWithOAuth(provider, { redirect_uri: `${window.location.origin}/auth` });
-    if (result.error) toast.error("Daxil olmaq alınmadı. Yenidən cəhd et.");
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: { redirectTo: `${window.location.origin}/auth` },
+    });
+    if (error) toast.error("Daxil olmaq alınmadı. Yenidən cəhd et.");
   }
 
   return (
@@ -113,9 +114,6 @@ function AuthPage() {
           <div className="mt-6 grid gap-3">
             <Button type="button" variant="chunky" size="xl" className="w-full" onClick={() => social("google")}>
               <GoogleG /> Continue with Google
-            </Button>
-            <Button type="button" variant="chunky" size="xl" className="w-full" onClick={() => social("lovable")}>
-              <LovableMark className="size-[18px]" /> Continue with Lovable
             </Button>
           </div>
 

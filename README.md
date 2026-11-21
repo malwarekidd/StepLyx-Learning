@@ -1,31 +1,39 @@
-StepLyx
+# StepLyx Learning
 
-Turn any PDF into a step-by-step learning path.
+Upload any PDF — a textbook, exam guide, lecture notes, or any subject — and StepLyx builds a step-by-step interactive learning path for it. It's not limited to math: upload a history PDF and get history lessons; upload a chemistry PDF and get chemistry lessons. The topic comes from your file.
 
-StepLyx is not just for math. Upload a PDF on any subject (math, law, medicine, history, languages, programming) and the app builds the learning path for that topic automatically: units, lessons, questions, and the rules needed to solve them.
+## What it does
 
-How it works
-Upload a PDF (textbook, notes, or practice tests).
-The path is generated. The PDF is split into units and lesson nodes, shown as a connected path.
-Practice. Each lesson has multiple-choice questions (A/B/C/D). You can change your answer before locking it in.
-Stuck? See the rule. Press "Bilmirsənsə qaydaya bax" ("If you don't know, see the rule") to open the exact rule from your PDF for that question.
-Ask the AI. The built-in chatbot knows your current topic, question, and PDF rules, so its explanations stay on point.
-Stay motivated. Track your daily streak, XP, leaderboard rank, and unit progress.
-Features
-PDF → units, lesson nodes, questions, and question-linked rules
-Sequential, game-style learning path
-On-demand rule for every question
-Context-aware AI chat (LLM API)
-Streaks, XP, leaderboards, and completion tracking
-Run locally
-bash
-git clone https://github.com/malwarekidd/StepLyx-Learning.git
-cd StepLyx-Learning
-npm i
-npm run dev
+**PDF → Learning path.** An AI reads your uploaded PDF and generates a structured curriculum: units broken into lessons, each lesson containing practice questions, with every question linked to the exact rule from your PDF that explains how to solve it.
 
-Add your own keys (LLM API, database) to a local .env file. Never commit it.
+**"If you don't know, see the rule."** When you're stuck on a question, one tap reveals the specific rule extracted from your PDF — not a vague hint, the actual rule that solves it. No more searching through 300 pages manually.
 
-Tech
+**AI tutor chat.** A chat assistant is aware of your current lesson, the active question, and all the rules in your PDF. It guides you through the reasoning without giving away the answer until you've answered.
 
-React, Vite, TypeScript, Supabase, Drizzle.
+**Progress tracking.** XP points, daily streaks, unit completion, and a leaderboard keep the momentum going across a long study period.
+
+## How it works
+
+1. Upload a PDF (textbook chapter, exam syllabus, lecture notes — any topic)
+2. The AI extracts units, lessons, questions, and rules from your document
+3. Work through lessons in order; each question shows only what your PDF covers
+4. When stuck, tap "See the rule" for the relevant excerpt
+5. Chat with the AI tutor for step-by-step guidance on the current question
+6. Track your streak and XP as you progress through the material
+
+## Stack
+
+- **Frontend / routing** — React + TanStack Router + TanStack Start (SSR)
+- **Styling** — Tailwind CSS + shadcn/ui
+- **Database / auth** — Supabase (Postgres, Row-Level Security, Storage for PDFs)
+- **AI** — AI gateway (PDF extraction + tutor chat streaming)
+- **ORM / migrations** — Drizzle
+
+## Development
+
+```bash
+bun install
+bun dev
+```
+
+Requires a Supabase project. Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` (and `SUPABASE_URL` / `SUPABASE_PUBLISHABLE_KEY` for server functions) in a `.env` file.
