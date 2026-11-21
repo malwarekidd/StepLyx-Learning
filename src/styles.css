@@ -42,6 +42,9 @@
   --color-gold: var(--gold);
   --color-gold-foreground: var(--gold-foreground);
   --color-surface: var(--surface);
+  --color-google: var(--google);
+  --color-google-foreground: var(--google-foreground);
+  --color-google-border: var(--google-border);
   --color-tone: var(--tone);
   --color-surface-raised: var(--surface-raised);
   --color-border: var(--border);
@@ -70,6 +73,9 @@
   --foreground: oklch(0.96 0.005 250);
   --surface: oklch(0.215 0.008 265); /* #181a1f */
   --surface-raised: oklch(0.27 0.01 260);
+  --google: #131314;
+  --google-foreground: #e3e3e3;
+  --google-border: #8e918f;
   --card: oklch(0.215 0.008 265);
   --card-foreground: oklch(0.96 0.005 250);
   --popover: oklch(0.23 0.01 262);
