@@ -185,7 +185,12 @@ export type Database = {
         }[]
       }
       get_topic_leaderboard: {
-        Args: { _curriculum_key: string; _lesson_id: string; _limit?: number }
+        Args: {
+          _curriculum_key: string
+          _lesson_id: string
+          _limit?: number
+          _viewer: string
+        }
         Returns: {
           accuracy: number
           attempts: number

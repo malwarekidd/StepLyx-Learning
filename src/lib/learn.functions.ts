@@ -184,7 +184,9 @@ export const getLeaderboard = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
     if (data.scope === "topic") {
-      const { data: rows, error } = await supabase.rpc("get_topic_leaderboard", {
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      const { data: rows, error } = await supabaseAdmin.rpc("get_topic_leaderboard", {
+        _viewer: userId,
         _curriculum_key: data.curriculumKey ?? SAMPLE_KEY,
         _lesson_id: data.lessonId ?? "",
         _limit: 50,

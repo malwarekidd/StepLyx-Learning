@@ -35,6 +35,6 @@ use the editor.
 - The active curriculum is either the built-in sample (key `sample`) or a row in `curricula`; load it only through `loadCurriculum` so server and client agree.
 - XP, streaks and lesson progress are written only by the `submitLesson` server function via the admin client after re-grading answers; never add client write access to `learner_stats` or `lesson_progress`.
 - Game rules (XP amounts, combo, streak math, unlocking) are pure functions in `src/lib/game-logic.ts` with tests in `src/test/game-logic.test.ts`; change rules there, not in components.
-- Leaderboards read other users only through the security-definer RPCs `get_global_leaderboard` / `get_topic_leaderboard`, which expose public fields only.
+- Leaderboards read other users only through the RPCs `get_global_leaderboard` (security definer) and `get_topic_leaderboard` (service-role only, called via the admin client with the verified user as `_viewer`), which expose public fields only; this keeps protected rows out of direct client RPC calls.
 - The tutor chat streams plain text from the `/api/chat` server route (bearer-verified) and persists one conversation per user in `chat_messages`.
 - Unit tone colors come from `data-tone` scopes setting `--tone`; use `bg-tone`/`text-tone` instead of hard-coded unit colors.
