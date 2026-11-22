@@ -3,15 +3,16 @@ import { z } from "zod";
 
 import { curriculumStats } from "@/data/curriculum";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { extractedCurriculumSchema, extractionJsonSchema, normalizeExtracted } from "@/lib/curriculum-schema";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
-const EXTRACTION_PROMPT = `Sən kurikulum PDF-lərini interaktiv öyrənmə yoluna çevirən ekspertsən.
-PDF-i oxu və aşağıdakıları çıxar:
-- sections: PDF-in bölmələri (id qısa və unikal, məs. "s1-2"; code məs. "§1.2"; page — bölmənin başladığı səhifə).
-- rules: hər bölmədəki qaydalar/düsturlar. statement — qaydanın mətnə sadiq izahı, formula — qısa düstur və ya şərt, example — qısa həll olunmuş nümunə (addımlarla).
-- units: PDF ardıcıllığına uyğun 1-8 unit; hər unitdə 2-6 dərs (lesson). Hər unitin sonunda "review" və ya "checkpoint" növlü təkrar dərsi əlavə et. Adi dərslər üçün kind "star" və ya "lightning".
-- Hər dərsdə 3-5 test sualı: tam 4 variant (options), answer — düzgün variantın 0-3 indeksi, ruleId — sualı həll etmək üçün lazım olan qaydanın id-si (rules siyahısından), steps — həmin sualı həll etmək üçün 2-4 addım; son addım cavabı birbaşa deməsin.
-Qaydalar və suallar yalnız PDF-dəki məzmuna əsaslansın. Düzgün variantların yerini qarışdır. PDF hansı dildədirsə, o dildə yaz (default: Azərbaycan dili).`;
+import type { Database } from "@/integrations/supabase/types";
+import {
+  EXTRACTION_PROMPT,
+  extractedCurriculumSchema,
+  extractionJsonSchema,
+  normalizeExtracted,
+  type ExtractedCurriculum,
+} from "@/lib/curriculum-schema";
 
 export const parseCurriculumPdf = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -63,19 +64,28 @@ export const parseCurriculumPdf = createServerFn({ method: "POST" })
       console.error("Invalid extraction output", e);
       throw new Error("PDF-dən struktur çıxarıla bilmədi. Daha aydın mətnli PDF yükləyin.");
     }
-    const curriculum = normalizeExtracted(parsed, data.fileName);
-    if (curriculum.units.length === 0) throw new Error("PDF-də sual yaratmaq üçün kifayət qədər məzmun tapılmadı.");
-
-    const { data: row, error } = await supabase
-      .from("curricula")
-      .insert({ owner_id: userId, title: parsed.title, source_file: data.fileName, data: JSON.parse(JSON.stringify(curriculum)) })
-      .select("id")
-      .single();
-    if (error) throw new Error(error.message);
-    await supabase.from("profiles").update({ active_curriculum_id: row.id }).eq("id", userId);
-
-    return { id: row.id, title: parsed.title, curriculum, stats: curriculumStats(curriculum) };
+    return storeCurriculum(supabase, userId, parsed, data.fileName);
   });
+
+export const saveExtractedCurriculum = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((input: { fileName: string; extracted: unknown }) =>
+    z.object({ fileName: z.string().min(1).max(200), extracted: extractedCurriculumSchema }).parse(input),
+  )
+  .handler(async ({ data, context }) => storeCurriculum(context.supabase, context.userId, data.extracted, data.fileName));
+
+async function storeCurriculum(supabase: SupabaseClient<Database>, userId: string, parsed: ExtractedCurriculum, fileName: string) {
+  const curriculum = normalizeExtracted(parsed, fileName);
+  if (curriculum.units.length === 0) throw new Error("PDF-də sual yaratmaq üçün kifayət qədər məzmun tapılmadı.");
+  const { data: row, error } = await supabase
+    .from("curricula")
+    .insert({ owner_id: userId, title: parsed.title, source_file: fileName, data: JSON.parse(JSON.stringify(curriculum)) })
+    .select("id")
+    .single();
+  if (error) throw new Error(error.message);
+  await supabase.from("profiles").update({ active_curriculum_id: row.id }).eq("id", userId);
+  return { id: row.id, title: parsed.title, curriculum, stats: curriculumStats(curriculum) };
+}
 
 function extractOutputText(response: unknown): string {
   const r = response as { output_text?: string; output?: { type: string; content?: { type: string; text?: string }[] }[] };

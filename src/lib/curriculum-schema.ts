@@ -2,6 +2,14 @@ import { z } from "zod";
 
 import type { Curriculum, NodeKind } from "@/data/curriculum";
 
+export const EXTRACTION_PROMPT = `Sən kurikulum PDF-lərini interaktiv öyrənmə yoluna çevirən ekspertsən.
+PDF-i oxu və aşağıdakıları çıxar:
+- sections: PDF-in bölmələri (id qısa və unikal, məs. "s1-2"; code məs. "§1.2"; page — bölmənin başladığı səhifə).
+- rules: hər bölmədəki qaydalar/düsturlar. statement — qaydanın mətnə sadiq izahı, formula — qısa düstur və ya şərt, example — qısa həll olunmuş nümunə (addımlarla).
+- units: PDF ardıcıllığına uyğun 1-8 unit; hər unitdə 2-6 dərs (lesson). Hər unitin sonunda "review" və ya "checkpoint" növlü təkrar dərsi əlavə et. Adi dərslər üçün kind "star" və ya "lightning".
+- Hər dərsdə 3-5 test sualı: tam 4 variant (options), answer — düzgün variantın 0-3 indeksi, ruleId — sualı həll etmək üçün lazım olan qaydanın id-si (rules siyahısından), steps — həmin sualı həll etmək üçün 2-4 addım; son addım cavabı birbaşa deməsin.
+Qaydalar və suallar yalnız PDF-dəki məzmuna əsaslansın. Düzgün variantların yerini qarışdır. PDF hansı dildədirsə, o dildə yaz (default: Azərbaycan dili).`;
+
 const str = (max: number) => z.string().trim().min(1).max(max);
 
 export const extractedCurriculumSchema = z.object({
